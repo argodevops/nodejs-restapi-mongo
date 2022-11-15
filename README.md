@@ -1,2 +1,3 @@
-# nodejs-restapi-mongo
-Example Project on how to build and develop REST API with NodeJS and MongoDB
+# Noddy Bookstore Rest API
+Base nodejs/mongo rest api.
+Created from a baseline nodejs/mongo restapi.

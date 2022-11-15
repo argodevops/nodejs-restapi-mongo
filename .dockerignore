@@ -1,0 +1,8 @@
+.git
+.idea
+./node_modules
+Dockerfile
+.dockerignore
+docker-compose.yml
+.gitignore
+init-mongo.js

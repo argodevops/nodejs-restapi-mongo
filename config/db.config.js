@@ -4,7 +4,7 @@ const logger = require('../logger/api.logger');
 const connect = () => {
 
     const url = process.env.MONGO_CONNECTION_STRING;
-    logger.info("process.env.MONGO_CONNECTION_STRING :::" + process.env.MONGO_CONNECTION_STRING);
+    logger.info("process.env.MONGO_CONNECTION_STRING: " + url);
 
     mongoose.connect(url, {
         useNewUrlParser: true,
@@ -31,7 +31,7 @@ const disconnect = () => {
     mongoose.disconnect();
 
     mongoose.once("close", async () => {
-        console.log("Diconnected  to database");
+        console.log("Disconnected from database");
     });
 
 };
