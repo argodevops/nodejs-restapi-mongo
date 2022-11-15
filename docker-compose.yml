@@ -2,6 +2,7 @@ version: '3.8'
 services:
   api:
     build: .
+   ## image: localhost:5000/nodejs-restapi-mongo:latest
     ports:
       - "3000:3000"
     environment:
