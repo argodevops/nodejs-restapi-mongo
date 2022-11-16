@@ -6,8 +6,6 @@ const swaggerDocument = YAML.load('./swagger.yml');
 
 require('dotenv').config()
 
-const logger = require('./logger/api.logger');
-
 const bookController = require('./controller/book.controller');
 const userController = require('./controller/user.controller');
 
@@ -18,7 +16,6 @@ app.use(bodyParser.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.post('/api/login', (req, res) => {
-    logger.info('login data', req.body);
     userController.loginUser(req.body.user, req.body.pass, req.body.token).then(data => res.json(data));
 })
 
@@ -43,7 +40,6 @@ app.get('/api/books/:author', (req, res) => {
 });
 
 app.post('/api/book', (req, res) => {
-    logger.info('book data', req.body);
     bookController.createBook(req.body).then(data => res.json(data));
 });
 
@@ -60,7 +56,6 @@ app.delete('/api/book/:id', (req, res) => {
 });
 
 app.get('/api/page/:title', (req,res) => {
-    logger.info('title', req.params.title);
     bookController.getPage(req.params.title).then(data => res.json(data));
 });
 
