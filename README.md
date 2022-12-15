@@ -23,3 +23,7 @@ If making code changes to the app, don't forget to build image before running do
 Or change the docker-compose to use an image of the app, and manually docker build / tag etc first.
 
 If wanting to run from command line without docker-compose, config to point at whatever mongo db or canned version of one you have, and npm install, npm run dev.
+
+
+
+If DB running already, tend to now just "node server.js" at the command line. 
