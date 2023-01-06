@@ -26,15 +26,22 @@ router.post('/Account/Login', validator('login'), (req, res, next) => {
     logger.info('Processing POST for Login');
     const { __RequestVerificationToken, username, password, returnUrl } = req.body;
     userController.loginUser(username, password, __RequestVerificationToken).then(() => {
-    // do not actually care about this, it's going to always say okay regardless.
     req.session.loggedIn = true;
     req.session.username = username;
+    const rNum = Math.random().toString();
+    const sessionId = rNum.substring(2, rNum.length);
+    res.cookie('sessionId', sessionId, { maxAge: 90000, httpOnly: true });
     res.redirect(redir3)});
 });
 
 router.get('/connect/authorize/callback', (req,res) => {
     logger.info('/connect/authorize/callback');
     res.status(200).send(secondFormResponse);
+});
+
+router.post('/connect/authorize/callback', (req,res) => {
+    logger.info('/connect/authorize/callback POST');
+    res.status(200);
 });
 
 router.get('/connect/authorize', (req, res) => {

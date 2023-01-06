@@ -16,6 +16,6 @@ const userRecordSchema = joi.object().keys({
     confirmPassword: joi.string().required(),
     ag: joi.string().required(),
     defaultGrp: joi.number().required()
-});
+}).unknown();
 
 module.exports = userRecordSchema;
