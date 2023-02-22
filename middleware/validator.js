@@ -8,6 +8,7 @@ module.exports = function(validator) {
         logger.info('No validator property?');
         throw new Error(`'${validator}' validator does not exist`);
     }
+    logger.info(`Validating ${validator}`);
     return async function(req, res, next) {
         try {
             const validated = await validators[validator].validateAsync(req.body);
