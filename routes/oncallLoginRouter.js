@@ -3,8 +3,11 @@ const router = express.Router();
 const validator = require('../middleware/validator');
 const userController = require('../controller/user.controller');
 const redir1 = "/oncall.identity/connect/authorize?client_id=OnCall&redirect_uri=http://localhost:3000/oncall/&response_type=code id_token&scope=openid profile oncall-auth&state=OpenIdConnect.AuthenticationProperties=YrLz1Uz3T2eE4BBg_SGlx7Zu0n0g11BT93lVQ3LLo6ElqIvsiTmk3yjcOTR1JV4yB-B7A5mBDQmG0i2BprD0lxLOqRDrtV9rQjf-XA1ahckkd8HBjzcAGwMZcU8ogMOthvwrg_BJ-CuusER2m_xvbty0YnSDpFjHUjwHWSXZy5K9fiamSyq_uHyLFVu5eGwUZ8UPMjC-x3SUbxxyXQfoOrnVgcAYRSmFZqv62_LjEmrpTR5nwXB9BMK-erO9yaau&response_mode=form_post&nonce=638048922273116310.ZWUzYmUzOGYtNjMxYi00MWNkLWFmYzctZWNkNDkyMDc2NWY1ZTkwNWYxYzMtY2U0MC00Y2JjLTkzYmMtODk3Y2Q0N2FmZGQ2&ui_locales=en-gb&x-client-SKU=ID_NET461&x-client-ver=6.8.0.0";
-const redir2 = "/oncall.identity/Account/Login?ReturnUrl=/oncall.identity/connect/authorize/callback?client_id=OnCall&redirect_uri=https://localhost:3000/oncall/&response_type=code id_token&scope=openid profile% oncall-auth&state=OpenIdConnect.AuthenticationProperties=YrLz1Uz3T2eE4BBg_SGlx7Zu0n0g11BT93lVQ3LLo6ElqIvsiTmk3yjcOTR1JV4yB-B7A5mBDQmG0i2BprD0lxLOqRDrtV9rQjf-XA1ahckkd8HBjzcAGwMZcU8ogMOthvwrg_BJ-CuusER2m_xvbty0YnSDpFjHUjwHWSXZy5K9fiamSyq_uHyLFVu5eGwUZ8UPMjC-x3SUbxxyXQfoOrnVgcAYRSmFZqv62_LjEmrpTR5nwXB9BMK-erO9yaau&response_mode=form_post&nonce=638048922273116310.ZWUzYmUzOGYtNjMxYi00MWNkLWFmYzctZWNkNDkyMDc2NWY1ZTkwNWYxYzMtY2U0MC00Y2JjLTkzYmMtODk3Y2Q0N2FmZGQ2&ui_locales=en-gb&x-client-SKU=ID_NET461&x-client-ver=6.8.0.0"
-const redir3 = "/oncall.identity/connect/authorize/callback?client_id=OnCall&redirect_uri=https://localhost:3000/oncall/&response_type=code id_token&scope=openid profile oncall-auth&state=OpenIdConnect.AuthenticationProperties%3DYrLz1Uz3T2eE4BBg_SGlx7Zu0n0g11BT93lVQ3LLo6ElqIvsiTmk3yjcOTR1JV4yB-B7A5mBDQmG0i2BprD0lxLOqRDrtV9rQjf-XA1ahckkd8HBjzcAGwMZcU8ogMOthvwrg_BJ-CuusER2m_xvbty0YnSDpFjHUjwHWSXZy5K9fiamSyq_uHyLFVu5eGwUZ8UPMjC-x3SUbxxyXQfoOrnVgcAYRSmFZqv62_LjEmrpTR5nwXB9BMK-erO9yaau&response_mode=form_post&nonce=638048922273116310.ZWUzYmUzOGYtNjMxYi00MWNkLWFmYzctZWNkNDkyMDc2NWY1ZTkwNWYxYzMtY2U0MC00Y2JjLTkzYmMtODk3Y2Q0N2FmZGQ2&ui_locales=en-gb&x-client-SKU=ID_NET461&x-client-ver=6.8.0.0"
+const redir2 = "/oncall.identity/Account/Login?ReturnUrl=/oncall.identity/connect/authorize/callback?client_id=OnCall&redirect_uri=https://localhost:3000/oncall/&response_type=code id_token&scope=openid profile% oncall-auth&state=OpenIdConnect.AuthenticationProperties=YrLz1Uz3T2eE4BBg_SGlx7Zu0n0g11BT93lVQ3LLo6ElqIvsiTmk3yjcOTR1JV4yB-B7A5mBDQmG0i2BprD0lxLOqRDrtV9rQjf-XA1ahckkd8HBjzcAGwMZcU8ogMOthvwrg_BJ-CuusER2m_xvbty0YnSDpFjHUjwHWSXZy5K9fiamSyq_uHyLFVu5eGwUZ8UPMjC-x3SUbxxyXQfoOrnVgcAYRSmFZqv62_LjEmrpTR5nwXB9BMK-erO9yaau&response_mode=form_post&nonce=638048922273116310.ZWUzYmUzOGYtNjMxYi00MWNkLWFmYzctZWNkNDkyMDc2NWY1ZTkwNWYxYzMtY2U0MC00Y2JjLTkzYmMtODk3Y2Q0N2FmZGQ2&ui_locales=en-gb&x-client-SKU=ID_NET461&x-client-ver=6.8.0.0";
+const redir3 = "/oncall.identity/connect/authorize/callback?client_id=OnCall&redirect_uri=https://localhost:3000/oncall/&response_type=code id_token&scope=openid profile oncall-auth&state=OpenIdConnect.AuthenticationProperties%3DYrLz1Uz3T2eE4BBg_SGlx7Zu0n0g11BT93lVQ3LLo6ElqIvsiTmk3yjcOTR1JV4yB-B7A5mBDQmG0i2BprD0lxLOqRDrtV9rQjf-XA1ahckkd8HBjzcAGwMZcU8ogMOthvwrg_BJ-CuusER2m_xvbty0YnSDpFjHUjwHWSXZy5K9fiamSyq_uHyLFVu5eGwUZ8UPMjC-x3SUbxxyXQfoOrnVgcAYRSmFZqv62_LjEmrpTR5nwXB9BMK-erO9yaau&response_mode=form_post&nonce=638048922273116310.ZWUzYmUzOGYtNjMxYi00MWNkLWFmYzctZWNkNDkyMDc2NWY1ZTkwNWYxYzMtY2U0MC00Y2JjLTkzYmMtODk3Y2Q0N2FmZGQ2&ui_locales=en-gb&x-client-SKU=ID_NET461&x-client-ver=6.8.0.0";
+
+const logoutRedir2 = "/oncall.identity/Account/Logout?logoutId=LOGOUTID";
+
 const logger = require('../logger/api.logger');
 
 const loginFormResponse = '<html>\
@@ -54,9 +57,14 @@ router.get('/Account/Login', (req, res) => {
     res.status(200).send(loginFormResponse);
 });
 
-router.get('/Account/Logout', (req, res) => {
+router.get('/connect/endsession', (req, res) => {
+    logger.info('redir for logout 2');
+    res.redirect(logoutRedir2);
+});
+
+router.get('/Account/Logout', (req,res) => {
     req.session.destroy();
-    logger.info('Logged out, destroyed session');
+    logger.info('final logout action');
     res.status(200).send('Logged out');
 });
 

@@ -8,7 +8,6 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
 const loginRouter = require('./routes/login');
-const logoutRouter = require('./routes/logout');
 const bookRouter = require('./routes/book');
 const booksRouter = require('./routes/books');
 const pageRouter = require('./routes/page');
@@ -60,7 +59,6 @@ function auth(req, res, next) {
 // routes middlewares
 app.use('/oncall.identity/', oncallLoginRouter);
 app.use('/api/login', loginRouter)
-app.use('/api/logout', logoutRouter);
 app.use('/api/book', bookRouter);
 app.use('/api/books', booksRouter);
 app.use('/api/page', pageRouter);
