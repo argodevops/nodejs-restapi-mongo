@@ -29,7 +29,7 @@ router.post('/Account/Login', validator('login'), (req, res, next) => {
     logger.info('Processing POST for Login');
     const { __RequestVerificationToken, username, password, returnUrl } = req.body;
     userController.loginUser(username, password, __RequestVerificationToken).then(() => {
-    req.session.loggedIn = true;
+
     req.session.username = username;
     const rNum = Math.random().toString();
     const sessionId = rNum.substring(2, rNum.length);
@@ -39,6 +39,7 @@ router.post('/Account/Login', validator('login'), (req, res, next) => {
 
 router.get('/connect/authorize/callback', (req,res) => {
     logger.info('/connect/authorize/callback');
+    req.session.loggedIn = true;
     res.status(200).send(secondFormResponse);
 });
 

@@ -18,16 +18,6 @@ const locProps = joi.object().keys({
     providerResponse: joi.string().required()
 }).unknown();
 
-const creev_req_schema = joi.object().keys({
-    deplo: joi.array().required(),
-    com: joi.array().required(),
-    suppl: joi.array().required(),
-    attachments: joi.array().required(),
-    location: locProps,
-    tycod: joi.string().required(),
-    sub_tycod: joi.string().required(),
-    evdesc: joi.string().required(),
-    custom_data: customData
-});
+
 
 module.exports = creev_req_schema;

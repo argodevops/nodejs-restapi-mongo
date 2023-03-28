@@ -7,4 +7,9 @@ const userSearchSchema = joi.object().keys({
   isActive: joi.boolean().required()
 });
 
-module.exports = userSearchSchema;
+const getUser = joi.object().keys({
+    empid: joi.number().required()
+});
+
+
+module.exports = { userSearchSchema, getUser };

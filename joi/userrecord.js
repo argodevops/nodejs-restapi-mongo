@@ -1,6 +1,6 @@
 const joi = require('joi');
 
-const userRecordSchema = joi.object().keys({
+const userrecord = joi.object().keys({
     stationId: joi.array().required(),
     skills: joi.array().required(),
     devices: joi.array().required(),
@@ -18,4 +18,8 @@ const userRecordSchema = joi.object().keys({
     defaultGrp: joi.number().required()
 }).unknown();
 
-module.exports = userRecordSchema;
+const usergroups = joi.object().keys({
+    empid: joi.number().required()
+});
+
+module.exports = { userrecord, usergroups };
