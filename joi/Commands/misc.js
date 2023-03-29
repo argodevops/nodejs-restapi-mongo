@@ -15,6 +15,13 @@ const events = joi.object().keys({
     offlineOptions: joi.object().required()
 });
 
+const logEvents = joi.object().keys({
+    eventId: joi.string().required(),
+    commandName: joi.string().required(),
+    commandParameters: joi.string().required(),
+    offlineOptions: joi.object().required()
+});
+
 const agencyusergrps = joi.object().keys({
     agencyEventId: joi.string().required()
 });
@@ -33,4 +40,17 @@ const evtysreses = joi.object().keys({
     agencyEventType: agencyEventType
 });
 
-module.exports = { crossref, agencyevents, agencyusergrps, calltaker, events, evtysreses };
+const table = joi.object().keys({
+    setName: joi.string().required(),
+    tableName: joi.string().required()
+});
+
+const eventids = joi.object().keys({
+    eventIds: joi.array().required()
+});
+
+const eventid = joi.object().keys({
+    eventId: joi.string().required()
+});
+
+module.exports = { crossref, agencyevents, agencyusergrps, calltaker, events, evtysreses, logEvents, table, eventids, eventid };

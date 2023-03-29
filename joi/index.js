@@ -11,7 +11,7 @@ const pergridget_req = require('./Commands/pergridget_req');
 const { locationSchema, geoSchema, spladdr, loisearch, locationhist } = require('./location');
 const { personQuery, articleQuery, vehicleQuery, locationQuery } = require('./Commands/informer_query');
 const { savecaller, callerhist, addcaller } = require('./Commands/caller');
-const { crossref, agencyevents, agencyusergrps, calltaker, events, evtysreses } = require('./Commands/misc');
+const { crossref, agencyevents, agencyusergrps, calltaker, events, evtysreses, logEvents, table, eventids, eventid } = require('./Commands/misc');
 
 module.exports = {
     create,
@@ -49,5 +49,9 @@ module.exports = {
     calltaker,
     evrtp,
     events,
-    evtysreses
+    evtysreses,
+    logEvents,
+    table,
+    eventids,
+    eventid
 }

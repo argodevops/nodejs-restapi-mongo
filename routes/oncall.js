@@ -157,6 +157,10 @@ router.post('/api/Commands/1.0.0/CAD_SUPP_DEF_REQ', (req,res) => {
     res.status(200).json({ body: { tables: [{}] } });
 });
 
+router.post('/api/Commands/1.0.0/CAD_LOG_EVENT_ACCESS_REQ', validator('logEvents'), (req,res) => {
+    res.status(200).json({});
+});
+
 router.get('/api/Remarks/GetByCommonEventId', (req, res) => {
     if(!req.query.commonEventId) {
         res.status(400).json({ error: "Missing commonEventId param"});
@@ -169,6 +173,29 @@ router.post('/api/Commands/1.0.0/CAD_GET_SUPPLEMENTAL_INFO_REQ', validator('even
     logger.info(JSON.stringify(req.body));
     res.status(200).json({ body: { supplementalInfoList: [] }});
 });
+
+router.post('/api/Commands/1.0.0/CAD_PARAM_TABLE_SET_REQ', validator('table'), (req, res) => {
+    res.status(200).json();
+});
+
+router.post('/api/Commands/1.0.1/CAD_GET_EVENT_TAGS_REQ', validator('eventids'), (req, res) => {
+    res.status(200).json({});
+});
+
+router.post('/api/Commands/1.0.0/CAD_GET_ADHOC_RESPONSE_PLAN_NAMES_REQ', (req, res) => {
+    res.status(200).json({});
+});
+
+
+router.post('/api/Commands/1.0.1/CAD_GET_EVENT_REQUIREMENTS_REQ', validator('eventid'), (req, res) => {
+    res.status(200).json({});
+});
+
+router.post('/api/Commands/1.0.0/CAD_GET_RESPONSE_PLAN_NAMES_REQ', (req, res) => {
+    res.status(200).json({});
+});
+
+
 
 router.post('/api/Commands/1.0.0/GET_AGENCY_EVENT_OVERRIDDEN_RESPONSE_PLAN_REQ', validator('agencyusergrps'), (req, res) => {
     res.status(200).json({ body: { responsePlans: [], custom_data: {} }});
@@ -312,6 +339,19 @@ router.post('/api/LocalizedStrings/RequestStrings', (req, res) => {
 router.get('/Partials/dialogRunCmdButton', (req, res) => {
     res.set('Content-Type', 'text/html');
     res.send(Buffer.from('<div>Button stuff</div>'));
+});
+
+
+router.get('/api/RecommendedUnits/GetRecommendedUnitsByEventId', (req, res) => {
+    if(!req.query.agencyEventId) {
+        res.status(400).json({ error: "Missing agencyEventId param"});
+    } else {
+        res.status(200).json({
+            "recommendStatus": "NoUnits",
+            "eventAlarmLevel": 0,
+            "errorCondition": 1
+           });
+    }
 });
 
 const PERSISTENT_GRID_GET_REQ = require('../responses/commands/PERSISTENT_GRID_GET_REQ');
