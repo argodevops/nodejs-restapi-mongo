@@ -6,6 +6,7 @@ const createEv = require('../responses/commands/CAD_CREEV_REQ');
 const evrtpReq = require('../responses/commands/CAD_EVRTP_REQ');
 const getevent = require('../responses/commands/GETEVENT_REQ');
 const locBody = require('../responses/commands/CAD_LV_REQ');
+const GENERATE_ROUTES = require('../responses/commands/GENERATE_ROUTE');
 const createRecord = require('../responses/commands/CAD_DEPLO_REQ');
 const getByCommonEventId = require('../responses/commands/GETBYCOMMONEVENTID.js');
 const logoutRedir1 = "/oncall.identity/connect/endsession?post_logout_redirect_uri=https%3A%2F%localhost:3000/oncall/&id_token_hint=TOKEN_STUFF&ui_locales=en-gb&x-client-SKU=ID_NET461&x-client-ver=6.8.0.0";
@@ -250,6 +251,10 @@ router.post('/api/Commands/1.0.1/CALLER_HIST_MANAGER_REQ', validator('callerhist
 
 router.post('/api/Commands/1.0.0/KNOWN_CALLER_MANAGER_REQ', validator('callerhist'), (req, res) => {
     res.status(200).json({ body: { ContactHistory: { ContactHistoryID: null }, custom_data:  {} } });
+});
+
+router.post('/api/Commands/1.0.1/CAD_GENRT_REQ', validator('generateroute'), (req, res) => {
+    res.status(200).json(GENERATE_ROUTES);
 });
 
 router.post('/api/Commands/1.0.0/LOCATION_HIST_MANAGER_REQ', validator('locationhist'), (req, res) => {

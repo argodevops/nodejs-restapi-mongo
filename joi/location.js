@@ -78,4 +78,21 @@ const locationhist = joi.object().keys({
     Source: joi.string().required()
 });
 
-module.exports = { locationSchema, geoSchema, spladdr, loisearch, locationhist, mLoc };
+const points = joi.object().keys({
+    lat: joi.number().required(),
+    lon: joi.number().required()
+});
+
+const routesearch = joi.object().keys({
+        name: joi.string().required(),
+        isUnit: joi.boolean().required(),
+        point: points
+});
+
+const generateroute = joi.object().keys({
+        waypoints: joi.array().items(routesearch),
+        selectedRoute: joi.string().required(),
+        offlineOptions: joi.object().required()
+});
+
+module.exports = { locationSchema, geoSchema, spladdr, loisearch, locationhist, mLoc, generateroute };

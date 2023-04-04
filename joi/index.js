@@ -8,7 +8,7 @@ const postLoginStep = require('./postLoginStep');
 const { createevent, updateevent, nearbyevent, getevty, aliaseventtypes, geteventreq, evrtp } = require('./Commands/events');
 const credialog_req = require('./Commands/credialog_req');
 const pergridget_req = require('./Commands/pergridget_req');
-const { locationSchema, geoSchema, spladdr, loisearch, locationhist } = require('./location');
+const { locationSchema, geoSchema, spladdr, loisearch, locationhist, generateroute } = require('./location');
 const { personQuery, articleQuery, vehicleQuery, locationQuery } = require('./Commands/informer_query');
 const { savecaller, callerhist, addcaller } = require('./Commands/caller');
 const { crossref, agencyevents, agencyusergrps, calltaker, events, evtysreses, logEvents, table, eventids, eventid } = require('./Commands/misc');
@@ -53,5 +53,6 @@ module.exports = {
     logEvents,
     table,
     eventids,
-    eventid
+    eventid,
+    generateroute
 }
