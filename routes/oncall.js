@@ -243,6 +243,10 @@ router.post('/api/Commands/1.0.0/CAD_GET_EMPLOYEE_REQ', validator('getUser'), (r
     res.status(200).json({ body: { user } });
 });
 
+router.post('/api/Commands/1.0.0/CAD_PUT_ONCALL_CONFIG_REQ', validator('oncallconfig'), (req, res) => {
+    res.status(200).json({});
+});
+
 router.post('/api/Commands/1.0.1/CALLER_HIST_MANAGER_REQ', validator('callerhist'), (req, res) => {
     logger.info('caller history req');
     logger.info(JSON.stringify(req.body));

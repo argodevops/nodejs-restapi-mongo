@@ -53,4 +53,12 @@ const eventid = joi.object().keys({
     eventId: joi.string().required()
 });
 
-module.exports = { crossref, agencyevents, agencyusergrps, calltaker, events, evtysreses, logEvents, table, eventids, eventid };
+const oncallconfig = joi.object().keys({
+    scope: joi.string().required(),
+    itemType: joi.string().required(),
+    itemSubType: joi.string().required(),
+    cachePattern: joi.string().required(),
+    itemData: joi.string().required()
+});
+
+module.exports = { crossref, agencyevents, agencyusergrps, calltaker, events, evtysreses, logEvents, table, eventids, eventid, oncallconfig };
