@@ -1,22 +1,23 @@
 version: '3.8'
 services:
-  api:
-    build: .
-   ## image: localhost:5000/nodejs-restapi-mongo:latest
-    ports:
-      - "3000:3000"
-    environment:
-      MONGO_CONNECTION_STRING: mongodb://test:password@mongodb:27017/testdb
-    networks:
-      - test-network
-    depends_on:
-      - database
-    command: npm run dev
+ # api:
+ #   image: localhost:5000/nodejs-restapi-mongo:latest
+ #   container_name: bookstore
+ #   ports:
+ #     - "3000:3000"
+ #   restart: unless-stopped
+ #   environment:
+ #     MONGO_CONNECTION_STRING: mongodb://test:password@mongodb:27017/testdb
+ #   networks:
+ #     - test-network
+ #   depends_on:
+ #     - database
+ #   command: npm run dev
 
   database:
     image: mongo:latest
     container_name: mongodb
-    restart: always
+    restart: unless-stopped
     ports:
       - "27017:27017"
     environment:
@@ -28,20 +29,6 @@ services:
       - database-data:/data/db
     networks:
       - test-network
-
-  mongo-express:
-    image: mongo-express:latest
-    restart: always
-    ports:
-      - "8081:8081"
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: password
-      ME_CONFIG_MONGODB_SERVER: mongodb
-    networks:
-      - test-network
-    depends_on:
-      - database
 
 networks:
   test-network:
