@@ -107,7 +107,6 @@ router.post('/api/Commands/1.0.0/CAD_REVERSE_GEOCODING_MSG_REQ', validator('geoS
 });
 
 router.post('/api/Commands/1.0.1/CAD_LV_REQ', validator('locationSchema'), (req,res) => {
-    logger.info(JSON.stringify(req.body));
     res.status(200).json(locBody);
 });
 
@@ -116,7 +115,6 @@ router.post('/api/Commands/1.0.0/LOI_SEARCH_RESULT_REQ', validator('loisearch'),
 });
 
 router.post('/api/Commands/1.0.1/CAD_CREEV_REQ', validator('createevent'), (req,res) => {
-    logger.info(JSON.stringify(req.body));
     res.status(200).json(createEv);
 });
 
@@ -173,7 +171,6 @@ router.get('/api/Remarks/GetByCommonEventId', (req, res) => {
 });
 
 router.post('/api/Commands/1.0.0/CAD_GET_SUPPLEMENTAL_INFO_REQ', validator('events'), (req, res) => {
-    logger.info(JSON.stringify(req.body));
     res.status(200).json({ body: { supplementalInfoList: [] }});
 });
 
@@ -244,7 +241,6 @@ router.post('/api/Commands/1.0.0/CAD_ADD_CALLER_REQ', validator('addcaller'), (r
 });
 
 router.post('/api/Commands/1.0.0/CAD_GET_SPL_ADDR_LOC_REQ', (req, res) => {
-    logger.info(JSON.stringify(req.body));
     res.status(200).json({ body: { "specialAddress": null } });
 });
 
@@ -310,7 +306,6 @@ router.post('/api/Commands/1.0.0/CAD_GET_ALL_USER_DETAILS_REQ', validator('userS
 });
 
 router.post('/Account/SetLocale', (req, res) => {
-    logger.info(`Received locale POST of ${req.body}`);
     res.status(200).send('Ok');
 });
 
@@ -375,8 +370,6 @@ const bodyA = {
 
 router.post('/api/Commands/1.0.0/CREEXEC_REQ',  (req, res) => {
     const type = req.body.ruleString;
-    console.log("---------------------------------------------- CREEXEC REQ ----------------------------------------");
-    console.log(JSON.stringify(req.body));
     const agencyEventId = req.body.agencyEventId;
     const response = getResponse(type, agencyEventId);
     res.status(200).json(response);
@@ -407,20 +400,15 @@ function creDialogResponse(type, agencyEventId) {
 const CREDIALOG_REQ = require('../responses/commands/CREDIALOG_REQ');
 router.post('/api/Commands/1.0.0/CREDIALOG_REQ',  (req, res) => {
     const type = req.body.creStateData.ruleString;
-    console.log("---------------------------------------------- CREDIALOG REQ ----------------------------------------");
-    console.log(JSON.stringify(req.body));
     const agencyEventId = req.body.creStateData.agencyEventId;
     let response = creDialogResponse(type, agencyEventId);
     if (req.body.customField1String) {
         response = CREDIALOG_REQ_closure2;
     }
-    logger.info("respones");
-    logger.info(JSON.stringify(response));
     res.status(200).json(response);
 });
 
 router.post('/api/LocalizedStrings/RequestStrings', (req, res) => {
-    logger.info(req.body);
     res.status(200).send([{"key": "TEXT_KEY","value": "TEXT VALUE X"}]);
 });
 
