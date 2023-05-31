@@ -17,7 +17,7 @@ const oncallRouter = require('./routes/oncall');
 require('dotenv').config()
 
 const path = '/oncall.identity/connect/authorize?client_id=OnCall&redirect_uri=http://localhost:3000/oncall/&response_type=code id_token&scope=openid profile oncall-auth&state=OpenIdConnect.AuthenticationProperties=YrLz1Uz3T2eE4BBg_SGlx7Zu0n0g11BT93lVQ3LLo6ElqIvsiTmk3yjcOTR1JV4yB-B7A5mBDQmG0i2BprD0lxLOqRDrtV9rQjf-XA1ahckkd8HBjzcAGwMZcU8ogMOthvwrg_BJ-CuusER2m_xvbty0YnSDpFjHUjwHWSXZy5K9fiamSyq_uHyLFVu5eGwUZ8UPMjC-x3SUbxxyXQfoOrnVgcAYRSmFZqv62_LjEmrpTR5nwXB9BMK-erO9yaau&response_mode=form_post&nonce=638048922273116310.ZWUzYmUzOGYtNjMxYi00MWNkLWFmYzctZWNkNDkyMDc2NWY1ZTkwNWYxYzMtY2U0MC00Y2JjLTkzYmMtODk3Y2Q0N2FmZGQ2&ui_locales=en-gb&x-client-SKU=ID_NET461&x-client-ver=6.8.0.0'
-
+const updatedPath = '/oncall.identity/connect/authorize?client_id=OnCall&redirect_uri=https://localhost:3000/oncall/&response_type=code id_token&scope=openid profile offline_access oncall-auth disp-realtimewebapi disp-webapi&state=OpenIdConnect.AuthenticationProperties=hVRwJU6EKqQuw2ZbGs1sEMM4MEmOpeZxzU2q3Lu-Lj2_Suy3Iwc_p4O1uvAAWAxKVVHqtSBVVeXl9Eqxs0EGHfERllHiSEatugyYveyulAqID1EK7kwwbQ6K59DT5qw2-Onzgbn0CFmQUJHMgpqAZHNxAmhmZgYpd-kESzdIEQH-rwTufFiqjny7Hv9s77BcAnE2h2rh9Pkh1l5jzqx9X3WYzZIdyaff5p9YI8PB7TPtwPbBpyDhGAtkLPsA0HoUooVXNkGmzxhmpTW3uKAHRjRpXxmxLRb5139PwctlYwU&response_mode=form_post&nonce=638193120661679135.Y2U4YzFmOTQtMmUyMS00ODhjLWI1N2QtMDU5YmE4YzdlNGY4ZmEyNWQ4NzItOGIzZC00ZThmLTg2NGEtZDQxM2EyYTNkYTc3&ui_locales=en-gb&x-client-SKU=ID_NET461&x-client-ver=6.8.0.0';
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(cookieParser());
@@ -25,8 +25,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
     secret: "asecret",
-    saveUninitialized:true,
-    resave:true
+    saveUninitialized: true,
+    resave: true
 }));
 
 // swagger. Before logging/login middlewares.
@@ -38,7 +38,7 @@ app.use(auth);
 
 
 function logRoute(req, res, next) {
-    logger.info(`Requested resource: ${req.url}`)
+    logger.info(`Req: ${req.url}`)
     next();
 }
 
@@ -49,7 +49,7 @@ function auth(req, res, next) {
             next();
         } else {
             logger.info('Not logged in, redirecting to Login');
-            res.redirect(req.baseUrl + path);
+            res.redirect(req.baseUrl + updatedPath);
         }
     } else {
         next();

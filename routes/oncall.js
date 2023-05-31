@@ -7,6 +7,7 @@ const evrtpReq = require('../responses/commands/CAD_EVRTP_REQ');
 const getevent = require('../responses/commands/GETEVENT_REQ');
 const locBody = require('../responses/commands/CAD_LV_REQ');
 const GENERATE_ROUTES = require('../responses/commands/GENERATE_ROUTE');
+const CAD_GET_MSG_GROUPS_REQ = require('../responses/commands/CAD_GET_MSG_GROUPS_REQ');
 const createRecord = require('../responses/commands/CAD_DEPLO_REQ');
 const getByCommonEventId = require('../responses/commands/GETBYCOMMONEVENTID.js');
 const logoutRedir1 = "/oncall.identity/connect/endsession?post_logout_redirect_uri=https%3A%2F%localhost:3000/oncall/&id_token_hint=TOKEN_STUFF&ui_locales=en-gb&x-client-SKU=ID_NET461&x-client-ver=6.8.0.0";
@@ -106,6 +107,7 @@ router.post('/api/Commands/1.0.0/CAD_REVERSE_GEOCODING_MSG_REQ', validator('geoS
 });
 
 router.post('/api/Commands/1.0.1/CAD_LV_REQ', validator('locationSchema'), (req,res) => {
+    logger.info(JSON.stringify(req.body));
     res.status(200).json(locBody);
 });
 
@@ -183,6 +185,15 @@ router.post('/api/Commands/1.0.1/CAD_GET_EVENT_TAGS_REQ', validator('eventids'),
     res.status(200).json({});
 });
 
+const CAD_GET_CONTACTS_REQ = require('../responses/commands/CAD_GET_CONTACTS_REQ');
+router.post('/api/Commands/1.0.1/CAD_GET_CONTACTS_REQ', (req, res) => {
+    res.status(200).json(CAD_GET_CONTACTS_REQ);
+});
+
+router.post('/api/Commands/1.0.0/CAD_PARAMETER_TABLE_SET_REQ', (req, res) => {
+    res.status(200).json({});
+});
+
 router.post('/api/Commands/1.0.0/CAD_GET_ADHOC_RESPONSE_PLAN_NAMES_REQ', (req, res) => {
     res.status(200).json({});
 });
@@ -238,7 +249,6 @@ router.post('/api/Commands/1.0.0/CAD_GET_SPL_ADDR_LOC_REQ', (req, res) => {
 });
 
 router.post('/api/Commands/1.0.0/CAD_GET_EMPLOYEE_REQ', validator('getUser'), (req, res) => {
-    logger.info('Get user req');
     const user = { ...userData };
     res.status(200).json({ body: { user } });
 });
@@ -248,13 +258,15 @@ router.post('/api/Commands/1.0.0/CAD_PUT_ONCALL_CONFIG_REQ', validator('oncallco
 });
 
 router.post('/api/Commands/1.0.1/CALLER_HIST_MANAGER_REQ', validator('callerhist'), (req, res) => {
-    logger.info('caller history req');
-    logger.info(JSON.stringify(req.body));
     res.status(200).json({ body: { ContactHistory: { ContactHistoryID: null }, custom_data:  {} } });
 });
 
 router.post('/api/Commands/1.0.0/KNOWN_CALLER_MANAGER_REQ', validator('callerhist'), (req, res) => {
     res.status(200).json({ body: { ContactHistory: { ContactHistoryID: null }, custom_data:  {} } });
+});
+
+router.post('/api/Commands/1.0.0/CAD_GET_MSG_GROUPS_REQ', (req, res) => {
+    res.status(200).json(CAD_GET_MSG_GROUPS_REQ);
 });
 
 router.post('/api/Commands/1.0.1/CAD_GENRT_REQ', validator('generateroute'), (req, res) => {
@@ -270,12 +282,10 @@ router.post('/api/Commands/1.0.0/CAD_GET_EMP_USER_GROUPS_REQ', validator('usergr
 });
 
 router.post('/api/Commands/1.0.0/CAD_UPDATE_EVENT_REQ', validator('updateevent'), (req,res) => {
-    logger.info(JSON.stringify(req.body));
     res.status(200).json(updateEventResp);
 });
 
 router.post('/api/Commands/1.0.0/CAD_NEARBY_EV_REQ', validator('nearbyevent'), (req,res) => {
-    logger.info(JSON.stringify(req.body));
     res.status(200).json(updateEventResp);
 });
 
@@ -312,9 +322,43 @@ router.post('/', validator('postLoginStep'), (req, res) => {
 });
 
 
+const CREEXEC_REQ_external = require('../responses/commands/CREEXEC_REQ');
+const CREEXEC_REQ_closer = require('../responses/commands/CREEXEC_REQ_closer');
+const CREEXEC_REQ_inc = require('../responses/commands/CREEXEC_REQ_incmessage');
+const CREEXEC_REQ_view = require('../responses/commands/CREEXEC_REQ_view');
+const CREEXEC_REQ_crime = require('../responses/commands/CREEXEC_REQ_crime');
+const CREDIALOG_REQ_incomingmsg = require('../responses/commands/CREDIALOG_REQ_incomingmsg');
+const CREDIALOG_REQ_closure = require('../responses/commands/CREDIALOG_REQ_closurerule');
+const CREDIALOG_REQ_external = require('../responses/commands/CREDIALOG_REQ_external');
+const CREDIALOG_REQ_crime = require('../responses/commands/CREDIALOG_REQ_crime');
+const CREDIALOG_REQ_view = require('../responses/commands/CREDIALOG_REQ_view-2');
+const CREDIALOG_REQ_closure2 = require('../responses/commands/CREDIALOG_REQ_closerule2');
+
+function getResponse(type, agencyEventId) {
+    switch(type) {
+        case 'CreWidget:ViewWebSites':
+            console.log("View websites");
+            return CREEXEC_REQ_view;
+        case 'CreWidget:ExternalWebSites':
+            console.log("External websites");
+            return CREEXEC_REQ_external;
+        case 'CreWidget:ClosureRule':
+            console.log("Closure Rule");
+            CREEXEC_REQ_closer.body.creStateData.agencyEventId = agencyEventId;
+            return CREEXEC_REQ_closer;
+        case 'CreWidget:CrimeAllegation':
+            console.log("Crime allegation");
+            return CREEXEC_REQ_crime;
+        default:
+            console.log("LXCIncomingMessage");
+            return CREEXEC_REQ_inc;
+    }
+}
+
+
 router.get('/', (req, res) => {
     const resp = "Oncall Root Path";
-    res.status(200).send(resp);
+    res.status(200).sendFile('home.html', {root:'./responses/defaults'});
 });
 
 // Related to BUS TRAFFIC
@@ -329,15 +373,50 @@ const bodyA = {
                "ruleString": "CreWidget:ExternalWebSites"
               };
 
-const CREEXEC_REQ = require('../responses/commands/CREEXEC_REQ');
 router.post('/api/Commands/1.0.0/CREEXEC_REQ',  (req, res) => {
-    console.log("NO VALIDATOR FOR THIS METHOD IS IT USED YET");
-    res.status(200).json(CREEXEC_REQ);
+    const type = req.body.ruleString;
+    console.log("---------------------------------------------- CREEXEC REQ ----------------------------------------");
+    console.log(JSON.stringify(req.body));
+    const agencyEventId = req.body.agencyEventId;
+    const response = getResponse(type, agencyEventId);
+    res.status(200).json(response);
 });
 
+
+
+function creDialogResponse(type, agencyEventId) {
+    switch (type) {
+        case 'ClosureRule':
+            CREDIALOG_REQ_closure.body.creStateData.agencyEventId = agencyEventId;
+            CREDIALOG_REQ_closure.body.creStateData.customField1 = agencyEventId[0];
+            return CREDIALOG_REQ_closure;
+        case 'ExternalWebSites':
+            return CREDIALOG_REQ_external;
+        case 'LXCIncomingMessage':
+            return CREDIALOG_REQ_incomingmsg;
+        case 'CrimeAllegation':
+            return CREDIALOG_REQ_crime;
+        case 'ViewWebSites':
+            return CREDIALOG_REQ_view;
+        default:
+            break;
+    }
+}
+
+
 const CREDIALOG_REQ = require('../responses/commands/CREDIALOG_REQ');
-router.post('/api/Commands/1.0.0/CREDIALOG_REQ', validator('credialog_req'), (req, res) => {
-    res.status(200).json(CREDIALOG_REQ);
+router.post('/api/Commands/1.0.0/CREDIALOG_REQ',  (req, res) => {
+    const type = req.body.creStateData.ruleString;
+    console.log("---------------------------------------------- CREDIALOG REQ ----------------------------------------");
+    console.log(JSON.stringify(req.body));
+    const agencyEventId = req.body.creStateData.agencyEventId;
+    let response = creDialogResponse(type, agencyEventId);
+    if (req.body.customField1String) {
+        response = CREDIALOG_REQ_closure2;
+    }
+    logger.info("respones");
+    logger.info(JSON.stringify(response));
+    res.status(200).json(response);
 });
 
 router.post('/api/LocalizedStrings/RequestStrings', (req, res) => {
